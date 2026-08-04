@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('image')->nullable();
             $table->string('phone_number', length: 25);
-            $table->string('phone_number2', length: 25);
+            $table->string('phone_number2', length: 25)->nullable();
             $table->unsignedBigInteger('sub_category_id');
             $table->unsignedBigInteger('city_id');
             $table->json('information')->nullable();

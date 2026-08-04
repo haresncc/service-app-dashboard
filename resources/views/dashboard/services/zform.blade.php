@@ -38,6 +38,11 @@
             el.value = element.id;
             subCatgoriesElement.appendChild(el);
         });
+        const currentSubCategory = {{ Illuminate\Support\Js::from($service->sub_category_id ?? null) }};
+        if(currentSubCategory != null) {
+            subCatgoriesElement.value=currentSubCategory;
+        }
+       
         const oldSubCategory = {{ Illuminate\Support\Js::from(old('sub_category_id') ?? null) }};
         if(oldSubCategory != null) {
             subCatgoriesElement.value=oldSubCategory;

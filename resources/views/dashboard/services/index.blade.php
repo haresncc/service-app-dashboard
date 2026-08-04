@@ -17,6 +17,6 @@
             <x-form.button usedfor="filter" displaynam="{{ __('Filter') }}" size=1 />
         </div>
     </form>
-    <x-table name="services" :datas="$services" :dataheaders="['id', 'name', 'subcategory', 'category','city']" :fields="['id', 'name', ['subcategory', 'name'], ['subcategory','category', 'name'], ['city', 'name']]" />
+    <x-tableuuid name="services" :datas="$services" :dataheaders="[ 'name', 'subcategory', 'category','city','action']" :fields="[ 'name', ['subcategory', 'name'], ['subcategory','category', 'name'], ['city', 'name']]" />
 
 </x-layouts.dashboard>

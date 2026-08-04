@@ -56,30 +56,54 @@ class ServiceController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $srv = Service::findOrFail($id);
+        $Service = $srv->getAttributes();
+        $imgAr = ['img1' => $Service["image"]];
+        unset($Service["image"]);
+        $newAr = array_keys($Service);
+        return view('dashboard.services.show', ['showArr' => $Service, 'source' => 'services', 'keys' => $newAr, 'imgAr' => $imgAr]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $uuid)
     {
-        //
+        $service = Service::findOrFail($uuid);
+        $allCategories = Category::select(['id', 'name'])->with('subCategories')->get()->toArray();
+        $subCategories = SubCategory::query()
+            ->where('category_id', '=', $service->subCategory->category->id)->get();
+        $cities = City::all();
+        return view('dashboard.services.edit', ['categories' => $allCategories, 'cities' => $cities, 'subCategories' => $subCategories, 'service' => $service]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ServiceRequest $request, string $uuid)
     {
-        //
+        $data = $request->all();
+        $service = Service::findOrFail($uuid);
+
+        $data = Helper::storeFiles($data, ['image1' => 'image']);
+
+        !($request->hasFile('image1') && $service->image) ?: $deleteFiles[] = $service->image;
+        $service->update($data);
+
+        empty($deleteFiles) ?: Helper::deleteFiles($deleteFiles);
+        return redirect()->route('dashboard.services.index')->with('success', __('Updated successfully'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $uuid)
     {
-        //
+        $service = Service::findOrFail($uuid);
+
+        $service->delete();
+        !($service->image) ?: $deleteFiles[] = $service->image;
+        empty($deleteFiles) ?: Helper::deleteFiles($deleteFiles);
+        return redirect()->route('dashboard.services.index')->with('success', __('Deleted successfully'));
     }
 }

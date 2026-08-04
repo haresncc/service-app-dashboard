@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Facade;
+
 return [
 
     /*
@@ -122,5 +124,10 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+
+    'Helper' => App\Helper\Helper::class,
+    'aliases' => Facade::defaultAliases()->merge([
+        'Helper' => App\Helper\Helper::class,
+    ])->toArray(),
 
 ];

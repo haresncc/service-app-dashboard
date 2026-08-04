@@ -64,28 +64,24 @@
                 @if (count($action) > 0)
                     <td>
                         @if (in_array('show', $action))
-                            <a href="{{ route('dashboard.' . $name . '.show', $data->id) }}"
+                            <a href="{{ route('dashboard.' . $name . '.show', $data->uuid) }}"
                                 class="btn btn-info btn-sm">{{ __('View') }}</a>
                         @endif
                         @if (in_array('edit', $action))
-                            @can('edit ' . $name)
-                                <a href="{{ route('dashboard.' . $name . '.edit', $data->id) }}"
+                                <a href="{{ route('dashboard.' . $name . '.edit', $data->uuid) }}"
                                     class="btn btn-primary btn-sm">{{ __('Edit') }}</a>
-                            @endcan
                         @endif
                         @if (in_array('delete', $action))
-                            @can('delete ' . $name)
                                 <form style="display:inline;" method="POST"
-                                    action="{{ route('dashboard.' . $name . '.destroy', $data->id) }}">
+                                    action="{{ route('dashboard.' . $name . '.destroy', $data->uuid) }}">
                                     @csrf
                                     @method('DELETE')
                                     <button onclick="return confirmDelFn();" type="submit"
                                         class="btn btn-danger btn-sm">{{ __('Delete') }}</button>
                                 </form>
-                            @endcan
                         @endif
                         @if (in_array('print', $action))
-                            <a href="{{ route('dashboard.' . $name . '.print', $data->id) }}" target="_blank"
+                            <a href="{{ route('dashboard.' . $name . '.print', $data->uuid) }}" target="_blank"
                                 class="btn btn-primary btn-sm">{{ __('Print') }}</a>
                         @endif
                     </td>
@@ -122,17 +118,3 @@
 </p>
 </div>
 
-
-{{-- <td>{{ $customer->natid }}</td>
-<td> @empty($customer->card_img1)
-        {{ '-' }}
-    @else
-        <a href="{{ asset('uploads/' . $customer->card_img1) }}" target="_blank">Card1</a>
-    @endempty
-</td>
-<td> @empty($customer->card_img2)
-        {{ '-' }}
-    @else
-        <a href="{{ asset('uploads/' . $customer->card_img2) }}" target="_blank">Card2</a>
-    @endempty
-</td> --}}

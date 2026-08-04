@@ -9,13 +9,13 @@
     </div>
     <div class="col-md-4" id="{{ $name . '-divshow' }}" @style(['text-align:left', 'visibility: hidden' => $value == ''])>
         @if ($filetype == 'img')
-            <a href="{{ $value != '' ? asset('uploads/' . $value) : '#' }}"
+            <a href="{{ $value != '' ? asset('storage/uploads/' . $value) : '#' }}"
                 target="{{ $value != '' ? '_blank' : '_self' }}">
-                <img src="{{ $value != '' ? asset('uploads/' . $value) : '' }}" class="img-thumbnail mt-2 ml-3"
+                <img src="{{ $value != '' ? asset('storage/uploads/' . $value) : '' }}" class="img-thumbnail mt-2 ml-3"
                     width="40" height="50">
             </a>
         @else
-            <a href="{{ $value != '' ? asset('uploads/' . $value) : '#' }}"
+            <a href="{{ $value != '' ? asset('storage/uploads/' . $value) : '#' }}"
                 target="{{ $value != '' ? '_blank' : '_self' }}">
                 <i class="fas fa-file-alt fa-lg mt-2 ml-3" style="font-size: 30px;color:#6383bb;"></i>
             </a>

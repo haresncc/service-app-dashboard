@@ -1,15 +1,30 @@
 <div class="form-row">
-    <x-form.select name="category_id" :selected="$service->subcategory->category_id ?? ''" displaynam="Category" :options="$categories" required size="4" onchange="fillSubCategories()"/>
-    <x-form.select name="sub_category_id" :selected="$service->sub_category_id ?? ''" displaynam="SubCategory" :options="[]" required  size="4"/>
-    <x-form.input name="name" :value="$service->name ?? ''" displaynam="Service Name" required  size="4"/>
+    <x-form.select name="category_id" :selected="$service->subcategory->category_id ?? ''" displaynam="Category" :options="$categories" required size="3" onchange="fillSubCategories()"/>
+    <x-form.select name="sub_category_id" :selected="$service->sub_category_id ?? ''" displaynam="SubCategory" :options="[]" required  size="3"/>
+    <x-form.input name="name" :value="$service->name ?? ''" displaynam="Arabic Name" required  size="3"/>
+    <x-form.input name="name_en" :value="$service->name_en ?? ''" displaynam="English Name" required  size="3"/>
 </div>
 <div class="form-row">
-    <x-form.select name="city_id" :selected="$service->city_id ?? ''" displaynam="City" :options="$cities" required  size="4"/>
-     <x-form.input name="phone_number" :value="$service->phone_number ?? ''" displaynam="phone_number" size=3 />   
-    <x-form.inputfile name="image1" displaynam="Card1" size=4 :value="$service->image ?? ''" onchange="readURL(this)"
+    {{-- <x-form.select name="city_id" :selected="$service->city_id ?? ''" displaynam="City" :options="$cities" required  size="4"/> --}}
+     <x-form.input name="phone_number" :value="$service->phone_number ?? ''" displaynam="phone_no1" size=2 />   
+     <x-form.input name="phone_number2" :value="$service->phone_number2 ?? ''" displaynam="phone_no2" size=2 />   
+    <div class="form-group col-md-4 mt-1">
+        <label for="city_id">City:</label>
+        <select class="js-example-data-ajax form-control form-control-sm" name="city_id" style="width: 90%">
+            <option></option> 
+        </select>
+    </div>
+        <x-form.inputfile name="image1" displaynam="Card1" size=4 :value="$service->image ?? ''" onchange="readURL(this)"
         accept="image/*" />
         
 </div>
+    {{-- <div class="form-row">
+        <div class="form-group col-md-4 my-1">
+            <select class="js-example-data-ajax form-control form-control-sm" name="city_id" style="width: 90%">
+                <option></option> 
+            </select>
+        </div>
+    </div> --}}
 <x-waring />
 
 @push('custom-scripts')
@@ -93,6 +108,18 @@
             imgShowDiv.style.visibility = "hidden";
         }
     }
+
+    $(document).ready(function() {
+        var cities = {{ Illuminate\Support\Js::from($cities ?? null) }};
+        var currentCity = {{ Illuminate\Support\Js::from($service->city_id ?? null) }};
+        $('.js-example-data-ajax').select2({
+            placeholder: 'Serach City Name',
+            data: cities,
+        });
+        if(currentCity != null) {
+            $('.js-example-data-ajax').val(currentCity).trigger('change');
+        }
+    });
 </script>
 
 @endpush

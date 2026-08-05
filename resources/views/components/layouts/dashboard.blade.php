@@ -25,7 +25,7 @@
     @endif
     <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
     <link rel="icon" href="{{ asset('favicon.ico') }}">
-    @if ($title == 'Smart')
+    @if ($title == 'Services')
         <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
     @endif
 </head>
@@ -152,7 +152,7 @@
             <!-- /.content-header -->
 
             <!-- Main content -->
-            <div @class(['content', 'pb-3' => $title == 'Smart'])>
+            <div @class(['content', 'pb-3' => $title == 'Services'])>
                 <div class="container-fluid">
                     {{ $slot }}
                 </div>
@@ -186,7 +186,7 @@
     <!-- REQUIRED SCRIPTS -->
 
     <!-- jQuery -->
-    @if ($title != 'Smart')
+    @if ($title != 'Services')
         <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     @else
         <script src="{{ asset('plugins/jquery/jquery7.min.js') }}"></script>

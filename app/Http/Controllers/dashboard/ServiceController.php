@@ -11,6 +11,7 @@ use App\Models\Service;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ServiceController extends Controller
 {
@@ -31,11 +32,14 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        // $allCategories = Category::all();
         $allCategories = Category::select(['id', 'name'])->with('subCategories')->get()->toArray();
-        // dd($allCategories);
-        // $allSubCategories = SubCategory::all();
-        $cities = City::all();
+        // $cities = City::all();
+        $cities = City::all()->map(function ($city) {
+            return (object) [
+                'id'   => $city->id,
+                'text' => $city->name,
+            ];
+        })->toArray();
         return view('dashboard.services.create', ['categories' => $allCategories, 'cities' => $cities, 'subCategories' => []]);
     }
 
@@ -46,6 +50,7 @@ class ServiceController extends Controller
     {
         $data = $request->all();
         $data['user_id'] = Auth::id();
+        $data['slug'] = Str::slug($data['name']);
         $data = Helper::storeFiles($data, ['image1' => 'image']);
         Service::create($data);
         return redirect()->route('dashboard.services.index')->with('success', __('Created successfully'));
@@ -58,6 +63,8 @@ class ServiceController extends Controller
     {
         $srv = Service::findOrFail($id);
         $Service = $srv->getAttributes();
+        $Service['city_id'] = $srv->city->name;
+        $Service['sub_category_id'] = $srv->subCategory->name;
         $imgAr = ['img1' => $Service["image"]];
         unset($Service["image"]);
         $newAr = array_keys($Service);
@@ -73,7 +80,12 @@ class ServiceController extends Controller
         $allCategories = Category::select(['id', 'name'])->with('subCategories')->get()->toArray();
         $subCategories = SubCategory::query()
             ->where('category_id', '=', $service->subCategory->category->id)->get();
-        $cities = City::all();
+        $cities = City::all()->map(function ($city) {
+            return (object) [
+                'id'   => $city->id,
+                'text' => $city->name,
+            ];
+        })->toArray();
         return view('dashboard.services.edit', ['categories' => $allCategories, 'cities' => $cities, 'subCategories' => $subCategories, 'service' => $service]);
     }
 
@@ -86,6 +98,7 @@ class ServiceController extends Controller
         $service = Service::findOrFail($uuid);
 
         $data = Helper::storeFiles($data, ['image1' => 'image']);
+        $data['slug'] = Str::slug($data['name']);
 
         !($request->hasFile('image1') && $service->image) ?: $deleteFiles[] = $service->image;
         $service->update($data);

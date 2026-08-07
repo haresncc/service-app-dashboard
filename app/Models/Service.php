@@ -84,4 +84,9 @@ class Service extends Model
             });
         };
     }
+
+    // Cast the JSON column to a PHP array automatically
+    protected $casts = [
+        'information' => 'array',
+    ];
 }

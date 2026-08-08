@@ -5,9 +5,10 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('auth.login');
-})->middleware('guest');;
+// Route::get('/', function () {
+//     return view('auth.login');
+// })->middleware('guest');
+Route::get('/', [HomeController::class, 'index'])->middleware('auth');
 
 Route::get('/dashboard/index', [HomeController::class, 'index'])
     ->middleware(['auth', 'verified'])->name('dashboard.index');

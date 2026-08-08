@@ -35,6 +35,9 @@
         if(document.getElementById("category_id").value !='') {
             fillSubCategories();
         };
+        if(document.getElementById("sub_category_id").value !='') {
+            addJsonInputs();
+        };
     };
     function fillSubCategories() {
         let subCatgoriesElement =document.getElementById("sub_category_id");
@@ -111,6 +114,8 @@
     }
 
     function addJsonInputs () {
+        const service = {{ Illuminate\Support\Js::from($service ?? null) }};
+        const jsonCurrentData= JSON.parse(service.information)
         const selectElement = document.getElementById("sub_category_id");
         const container = document.getElementById('inputContainer');
         container.innerHTML="";
@@ -145,6 +150,7 @@
             newInput.name = `information[${key}]`; // Unique name attribute for backend processing
             newInput.placeholder = key;
             newInput.required = Inputs.required.includes(key); // Make it a required field if needed
+            newInput.value=jsonCurrentData[key]
 
             // Assemble components into the wrapper
             fieldWrapper.appendChild(label);  

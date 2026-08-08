@@ -40,10 +40,7 @@ class ServiceController extends Controller
                 'text' => $city->name,
             ];
         })->toArray();
-        $allInformation = [
-            ['subCatg' => 'تأجير سيارات', 'information' => ['model' => 'text', 'car_no' => 'text', 'work_in' => 'text', 'kind' => ['بيجو 7', 'بيجو 4', 'ميكروباص']], 'required' => ['kind']],
-            ['subCatg' => 'أطباء', 'information' => ['from_time' => 'time', 'to_time' => 'time', 'work_days' => 'text', 'specialty' => ['عظام', 'اسنان', 'صدر', 'جلديه']], 'required' => ['specialty']]
-        ];
+        $allInformation = $this->getJosnData();
         return view('dashboard.services.create', ['categories' => $allCategories, 'cities' => $cities, 'subCategories' => [], 'jsonInfos' => $allInformation]);
     }
 
@@ -90,7 +87,8 @@ class ServiceController extends Controller
                 'text' => $city->name,
             ];
         })->toArray();
-        return view('dashboard.services.edit', ['categories' => $allCategories, 'cities' => $cities, 'subCategories' => $subCategories, 'service' => $service]);
+        $allInformation = $this->getJosnData();
+        return view('dashboard.services.edit', ['categories' => $allCategories, 'cities' => $cities, 'subCategories' => $subCategories, 'service' => $service, 'jsonInfos' => $allInformation]);
     }
 
     /**
@@ -122,5 +120,13 @@ class ServiceController extends Controller
         !($service->image) ?: $deleteFiles[] = $service->image;
         empty($deleteFiles) ?: Helper::deleteFiles($deleteFiles);
         return redirect()->route('dashboard.services.index')->with('success', __('Deleted successfully'));
+    }
+
+    protected function getJosnData()
+    {
+        return [
+            ['subCatg' => 'تأجير سيارات', 'information' => ['model' => 'text', 'car_no' => 'text', 'work_in' => 'text', 'kind' => ['بيجو 7', 'بيجو 4', 'ميكروباص']], 'required' => ['kind']],
+            ['subCatg' => 'أطباء', 'information' => ['from_time' => 'time', 'to_time' => 'time', 'work_days' => 'text', 'specialty' => ['عظام', 'اسنان', 'صدر', 'جلديه']], 'required' => ['specialty']]
+        ];
     }
 }

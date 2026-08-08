@@ -31,7 +31,7 @@
 </head>
 
 <body @class([
-    'hold-transition sidebar-mini sidebar-open',
+    'hold-transition sidebar-mini',
     'dark-mode' => Auth::user()->mode === 'Dark',
 ])>
     <div class="wrapper">

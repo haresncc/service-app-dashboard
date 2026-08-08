@@ -40,7 +40,11 @@ class ServiceController extends Controller
                 'text' => $city->name,
             ];
         })->toArray();
-        return view('dashboard.services.create', ['categories' => $allCategories, 'cities' => $cities, 'subCategories' => []]);
+        $allInformation = [
+            ['subCatg' => 'تأجير سيارات', 'information' => ['model' => 'text', 'car_no' => 'text', 'work_in' => 'text', 'kind' => ['بيجو 7', 'بيجو 4', 'ميكروباص']], 'required' => ['kind']],
+            ['subCatg' => 'أطباء', 'information' => ['from_time' => 'time', 'to_time' => 'time', 'work_days' => 'text', 'specialty' => ['عظام', 'اسنان', 'صدر', 'جلديه']], 'required' => ['specialty']]
+        ];
+        return view('dashboard.services.create', ['categories' => $allCategories, 'cities' => $cities, 'subCategories' => [], 'jsonInfos' => $allInformation]);
     }
 
     /**

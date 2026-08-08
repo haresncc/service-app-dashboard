@@ -1,16 +1,15 @@
 <div class="form-row">
     <x-form.select name="category_id" :selected="$service->subcategory->category_id ?? ''" displaynam="Category" :options="$categories" required size="3" onchange="fillSubCategories()"/>
-    <x-form.select name="sub_category_id" :selected="$service->sub_category_id ?? ''" displaynam="SubCategory" :options="[]" required  size="3"/>
-    <x-form.input name="name" :value="$service->name ?? ''" displaynam="Arabic Name" required  size="3"/>
+    <x-form.select name="sub_category_id" :selected="$service->sub_category_id ?? ''" displaynam="SubCategory" :options="[]" required  size="3" onchange="addJsonInputs()"/>
+    <x-form.input name="name" :value="$service->name ?? ''" displaynam="Arabic Name" required  size="3" autocomplete="off"/>
     <x-form.input name="name_en" :value="$service->name_en ?? ''" displaynam="English Name" required  size="3"/>
 </div>
 <div class="form-row">
-    {{-- <x-form.select name="city_id" :selected="$service->city_id ?? ''" displaynam="City" :options="$cities" required  size="4"/> --}}
      <x-form.input name="phone_number" :value="$service->phone_number ?? ''" displaynam="phone_no1" size=2 />   
      <x-form.input name="phone_number2" :value="$service->phone_number2 ?? ''" displaynam="phone_no2" size=2 />   
     <div class="form-group col-md-4 mt-1">
         <label for="city_id">City:</label>
-        <select class="js-example-data-ajax form-control form-control-sm" name="city_id" style="width: 90%">
+        <select class="js-example-data-ajax form-control form-control-sm" name="city_id" id="city_id" style="width: 90%">
             <option></option> 
         </select>
     </div>
@@ -18,13 +17,16 @@
         accept="image/*" />
         
 </div>
-    {{-- <div class="form-row">
-        <div class="form-group col-md-4 my-1">
-            <select class="js-example-data-ajax form-control form-control-sm" name="city_id" style="width: 90%">
-                <option></option> 
-            </select>
-        </div>
-    </div> --}}
+{{-- Seprator --}}
+<div class="d-flex align-items-center my-4">
+    <span class="mx-3 text-muted">Information</span>
+    <div class="flex-grow-1 border-bottom"></div>
+    <div class="flex-grow-1 border-bottom"></div>
+</div>
+
+{{-- Json Information inputs --}}
+<div class="form-row" id="inputContainer">
+</div>
 <x-waring />
 
 @push('custom-scripts')
@@ -42,7 +44,6 @@
         const subcategoriesList = categories.filter(
                 (category) => category.id == selectedCategory,
                 )[0].sub_categories;
-        // console.log(service === null,selectedCategory,categories,subcategoriesList);
         subCatgoriesElement.innerHTML = "";
 
         let el = document.createElement("option");
@@ -106,6 +107,53 @@
                 imgShow.setAttribute("src", '');
             };
             imgShowDiv.style.visibility = "hidden";
+        }
+    }
+
+    function addJsonInputs () {
+        const selectElement = document.getElementById("sub_category_id");
+        const container = document.getElementById('inputContainer');
+        container.innerHTML="";
+        const jsonInfos={{ Illuminate\Support\Js::from($jsonInfos ?? null) }};
+        const text = selectElement.options[selectElement.selectedIndex].text;
+        const Inputs = jsonInfos.filter((jsonInfo) => jsonInfo.subCatg == text)[0];
+        if (Inputs !=null) {
+            Object.entries(Inputs.information).forEach(([key, value]) => {
+            // Create a wrapper div for structural styling and easy removal
+            const fieldWrapper = document.createElement('div');
+            fieldWrapper.classList.add('form-group', 'col-md-3');
+
+            const label = document.createElement("label");
+            label.htmlFor = key; // Connects to the input's ID for accessibility
+            label.textContent = key
+            let newInput;     
+            // Create the input element
+            if (Array.isArray(value)) {
+                newInput = document.createElement('select');
+                value.forEach(data => {
+                    const option = document.createElement('option');
+                    option.value = data;
+                    option.textContent = data;
+                    newInput.appendChild(option);
+                });
+            } else {
+                newInput = document.createElement('input');
+            }
+            newInput.type = value; // Can be text, email, number, etc.
+            newInput.id=key
+            newInput.classList.add('form-control');
+            newInput.name = `information[${key}]`; // Unique name attribute for backend processing
+            newInput.placeholder = key;
+            newInput.required = Inputs.required.includes(key); // Make it a required field if needed
+
+            // Assemble components into the wrapper
+            fieldWrapper.appendChild(label);  
+            fieldWrapper.appendChild(newInput);
+
+            // Push the completed wrapper into the form container
+            container.appendChild(fieldWrapper);
+            });
+
         }
     }
 

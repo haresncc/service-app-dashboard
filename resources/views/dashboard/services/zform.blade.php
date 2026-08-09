@@ -115,7 +115,11 @@
 
     function addJsonInputs () {
         const service = {{ Illuminate\Support\Js::from($service ?? null) }};
-        const jsonCurrentData= JSON.parse(service.information)
+        const oldRequest = {{ Illuminate\Support\Js::from(old('information') ?? null) }};
+        let jsonCurrentData=[]
+        if (service != null) {
+            jsonCurrentData= JSON.parse(service.information);
+        }
         const selectElement = document.getElementById("sub_category_id");
         const container = document.getElementById('inputContainer');
         container.innerHTML="";
@@ -150,7 +154,12 @@
             newInput.name = `information[${key}]`; // Unique name attribute for backend processing
             newInput.placeholder = key;
             newInput.required = Inputs.required.includes(key); // Make it a required field if needed
-            newInput.value=jsonCurrentData[key]
+            if(jsonCurrentData[key] != null) {
+                newInput.value=jsonCurrentData[key]
+            }
+            if(oldRequest != null)  {
+                newInput.value=oldRequest[key]
+            }
 
             // Assemble components into the wrapper
             fieldWrapper.appendChild(label);  

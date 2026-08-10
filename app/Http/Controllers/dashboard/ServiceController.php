@@ -126,15 +126,10 @@ class ServiceController extends Controller
     protected function getJosnData()
     {
         return [
-            ['subCatg' => 'تأجير سيارات', 'information' => ['model' => 'text', 'car_no' => 'text', 'work_in' => 'text', 'kind' => ['بيجو 7', 'بيجو 4', 'ميكروباص']], 'required' => ['kind']],
-            ['subCatg' => 'أطباء', 'information' => [
-                'from_time' => 'time',
-                'to_time' => 'time',
-                'work_days' => 'text',
-                'latitude' => 'text',
-                'longitude' => 'text',
-                'specialty' => ['عظام', 'اسنان', 'صدر', 'جلديه']
-            ], 'required' => ['specialty']]
+            ['subCatg' => 'تأجير سيارات', 'information' => ['model' => 'text', 'car_no' => 'text', 'work_line' => 'text']],
+            ['subCatg' => 'أطباء', 'information' => ['from_time' => 'time', 'to_time' => 'time', 'work_days' => 'text']]
         ];
     }
 }
+
+// ['subCatg' => 'تأجير سيارات', 'information' => ['model' => 'text', 'car_no' => 'text', 'work_in' => 'text', 'kind' => ['بيجو 7', 'بيجو 4', 'ميكروباص']], 'required' => ['kind']],

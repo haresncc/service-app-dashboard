@@ -13,17 +13,23 @@
             <option></option> 
         </select>
     </div>
-        <x-form.inputfile name="image1" displaynam="Card1" size=4 :value="$service->image ?? ''" onchange="readURL(this)"
-        accept="image/*" />
-        
+    <x-form.inputfile name="image1" displaynam="Card1" size=4 :value="$service->image ?? ''" onchange="readURL(this)" accept="image/*" />  
 </div>
 {{-- Seprator --}}
+<div class="form-row align-items-center">
+    <div class="form-group col-md-2 ml-1">
+        <input type="checkbox" class="form-check-input ml-1" id="confirmed" name="confirmed"
+            value="1" @checked($service->confirmed ?? false)>
+        <label class="form-check-label ml-4 mb-2" for="confirmed">{{ __('Cofirmed') }}</label>
+    </div>  
+    <x-form.input name="latitude" :value="$service->latitude ?? ''" displaynam="Latitude" required  size="3" autocomplete="off"/>
+    <x-form.input name="longitude" :value="$service->longitude ?? ''" displaynam="Longitude" required  size="3" autocomplete="off"/>
+</div>
 <div class="d-flex align-items-center my-4">
     <span class="mx-3 text-muted">Information</span>
     <div class="flex-grow-1 border-bottom"></div>
     <div class="flex-grow-1 border-bottom"></div>
 </div>
-
 {{-- Json Information inputs --}}
 <div class="form-row" id="inputContainer">
 </div>

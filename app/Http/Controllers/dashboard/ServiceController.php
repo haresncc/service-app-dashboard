@@ -97,6 +97,7 @@ class ServiceController extends Controller
     public function update(ServiceRequest $request, string $uuid)
     {
         $data = $request->all();
+        $data['confirmed'] = isset($data['confirmed']);
         $service = Service::findOrFail($uuid);
 
         $data = Helper::storeFiles($data, ['image1' => 'image']);

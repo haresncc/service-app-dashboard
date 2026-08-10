@@ -35,7 +35,7 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($categories as $cat) {
-            Category::factory()->create($cat);
+            Category::factory(['active' => 1])->create($cat);
         }
     }
 }

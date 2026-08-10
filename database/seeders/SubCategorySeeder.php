@@ -94,6 +94,7 @@ class SubCategorySeeder extends Seeder
                     'name' => $sub['name'],
                     'name_en' => $sub['name_en'],
                     'category_id' => $categoryId,
+                    'active' => 1
                 ]);
             }
         }

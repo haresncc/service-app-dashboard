@@ -34,6 +34,7 @@ class Service extends Model
         'information_en',
         'sub_category_id',
         'city_id',
+        'confirmed',
     ];
 
     public function getNameAttribute($value)

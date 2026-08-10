@@ -28,6 +28,7 @@ class SubCategory extends Model
         'slug',
         'image',
         'category_id',
+        'active',
     ];
 
     public function getNameAttribute($value)

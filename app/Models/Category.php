@@ -23,6 +23,7 @@ class Category extends Model
         'slug',
         'image',
         'icon',
+        'active',
     ];
 
     public function getNameAttribute($value)

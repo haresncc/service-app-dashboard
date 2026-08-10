@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('phone_number2', length: 25)->nullable();
             $table->unsignedBigInteger('sub_category_id');
             $table->unsignedBigInteger('city_id');
+            $table->boolean('confirmed')->default(0);
+            // add show peirority
             $table->json('information')->nullable();
             $table->timestamps();
 

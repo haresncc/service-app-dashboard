@@ -53,7 +53,7 @@
     function fillSubCategories() {
         let subCatgoriesElement =document.getElementById("sub_category_id");
         const selectedCategory=document.getElementById("category_id").value;
-        const service = {{ Illuminate\Support\Js::from($service->except('coordinates') ?? null) }};
+        const service = {{ Illuminate\Support\Js::from($service ?? null) }};
         const categories = {{ Illuminate\Support\Js::from($categories ?? null) }};
         const subcategoriesList = categories.filter(
                 (category) => category.id == selectedCategory,
@@ -126,7 +126,7 @@
     }
 
     function addJsonInputs () {
-        const service = {{ Illuminate\Support\Js::from($service->except('coordinates') ?? null) }};
+        const service = {{ Illuminate\Support\Js::from($service ?? null) }};
         const oldRequest = {{ Illuminate\Support\Js::from(old('information') ?? null) }};
         let jsonCurrentData=[]
         if (service != null) {

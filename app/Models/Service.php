@@ -105,4 +105,6 @@ class Service extends Model
             ["POINT({$longitude} {$latitude})", $radiusInKm * 1000] // convert km to meters
         );
     }
+
+    protected $hidden = ['coordinates'];
 }

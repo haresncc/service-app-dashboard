@@ -34,6 +34,8 @@ class Service extends Model
         'information_en',
         'sub_category_id',
         'city_id',
+        'latitude',
+        'longitude',
         'confirmed',
     ];
 

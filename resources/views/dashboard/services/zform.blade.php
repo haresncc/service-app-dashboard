@@ -44,6 +44,10 @@
         if(document.getElementById("sub_category_id").value !='') {
             addJsonInputs();
         };
+        if(document.getElementById("latitude").value =='') {
+            getLoaction();
+            console.log('ok');
+        };
     };
     function fillSubCategories() {
         let subCatgoriesElement =document.getElementById("sub_category_id");
@@ -159,7 +163,7 @@
             newInput.classList.add('form-control');
             newInput.name = `information[${key}]`; // Unique name attribute for backend processing
             newInput.placeholder = key;
-            newInput.required = Inputs.required.includes(key); // Make it a required field if needed
+            // newInput.required = Inputs.required.includes(key); // Make it a required field if needed
             if(jsonCurrentData[key] != null) {
                 newInput.value=jsonCurrentData[key]
             }
@@ -174,9 +178,6 @@
             // Push the completed wrapper into the form container
             container.appendChild(fieldWrapper);
             });
-            if (Object.hasOwn(Inputs.information, "longitude")) {
-                getLoaction();
-            } 
         }
     }
 
@@ -193,38 +194,38 @@
     }
 
     // Success callback function
-function successCallback(position) {
-  const latitude = position.coords.latitude;
-  const longitude = position.coords.longitude;
-  
-//   const googleMapsUrl = `https://google.com{latitude},${longitude}`;
-//   const openStreetMapUrl = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
+    function successCallback(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    
+    //   const googleMapsUrl = `https://google.com{latitude},${longitude}`;
+    //   const openStreetMapUrl = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
 
-//   console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-//   console.log("Google Maps Link:", googleMapsUrl);
-//   console.log("OpenStreetMap Link:", openStreetMapUrl);
-document.getElementById('latitude').value=latitude;
-document.getElementById('longitude').value=longitude;
+    //   console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+    //   console.log("Google Maps Link:", googleMapsUrl);
+    //   console.log("OpenStreetMap Link:", openStreetMapUrl);
+    document.getElementById('latitude').value=latitude;
+    document.getElementById('longitude').value=longitude;
 
-}
+    }
 
-    // Error callback function
-function errorCallback(error) {
-switch(error.code) {
-    case error.PERMISSION_DENIED:
-    console.error("User denied the request for Geolocation.");
-    break;
-    case error.POSITION_UNAVAILABLE:
-    console.error("Location information is unavailable.");
-    break;
-    case error.TIMEOUT:
-    console.error("The request to get user location timed out.");
-    break;
-    case error.UNKNOWN_ERROR:
-    console.error("An unknown error occurred.");
-    break;
-}
-}
+        // Error callback function
+    function errorCallback(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+        console.error("User denied the request for Geolocation.");
+        break;
+        case error.POSITION_UNAVAILABLE:
+        console.error("Location information is unavailable.");
+        break;
+        case error.TIMEOUT:
+        console.error("The request to get user location timed out.");
+        break;
+        case error.UNKNOWN_ERROR:
+        console.error("An unknown error occurred.");
+        break;
+    }
+    }
 
     $(document).ready(function() {
         var cities = {{ Illuminate\Support\Js::from($cities ?? null) }};

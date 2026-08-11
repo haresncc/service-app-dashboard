@@ -12,6 +12,7 @@ use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
@@ -53,6 +54,10 @@ class ServiceController extends Controller
         $data['user_id'] = Auth::id();
         $data['slug'] = Str::slug($data['name']);
         $data = Helper::storeFiles($data, ['image1' => 'image']);
+
+        // Construct standard WKT representation: POINT(longitude latitude)
+        $wktPoint = "POINT({$data['longitude']} {$data['latitude']})";
+        $data['coordinates'] = DB::raw("ST_PointFromText('{$wktPoint}', 4326)");
         Service::create($data);
         return redirect()->route('dashboard.services.index')->with('success', __('Created successfully'));
     }

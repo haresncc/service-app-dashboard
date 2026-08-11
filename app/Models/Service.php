@@ -36,6 +36,7 @@ class Service extends Model
         'city_id',
         'latitude',
         'longitude',
+        'coordinates',
         'confirmed',
     ];
 
@@ -92,4 +93,16 @@ class Service extends Model
     protected $casts = [
         'information' => 'array',
     ];
+
+    /**
+     * Scope to find records within a specific kilometer radius.
+     * MySQL expects WKT syntax: POINT(longitude latitude)
+     */
+    public function scopeWithinRadius(Builder $query, float $latitude, float $longitude, float $radiusInKm): Builder
+    {
+        return $query->whereRaw(
+            "ST_Distance_Sphere(coordinates, ST_GeomFromText(?, 4326)) <= ?",
+            ["POINT({$longitude} {$latitude})", $radiusInKm * 1000] // convert km to meters
+        );
+    }
 }

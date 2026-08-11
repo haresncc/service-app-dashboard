@@ -20,8 +20,10 @@ return new class extends Migration
             $table->string('phone_number2', length: 25)->nullable();
             $table->unsignedBigInteger('sub_category_id');
             $table->unsignedBigInteger('city_id');
-            $table->geometry('latitude', subtype: 'point', srid: 0)->nullable();
-            $table->geometry('longitude', subtype: 'point', srid: 0)->nullable();
+            $table->decimal('latitude', total: 10, places: 8);
+            $table->decimal('longitude', total: 11, places: 8);
+            // Creates a native POINT column restricted to SRID 4326
+            $table->geography('coordinates', 'point', 4326);
             $table->boolean('confirmed')->default(0);
             // add show peirority
             $table->json('information')->nullable();
@@ -29,6 +31,8 @@ return new class extends Migration
 
             $table->foreign('sub_category_id')->references('id')->on('sub_categories');
             $table->foreign('city_id')->references('id')->on('cities');
+            // Add a spatial index for fast distance queries
+            $table->spatialIndex('coordinates');
         });
     }
 

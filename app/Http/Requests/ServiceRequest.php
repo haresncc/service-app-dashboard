@@ -30,6 +30,8 @@ class ServiceRequest extends FormRequest
             // 'information' = > 
             'sub_category_id' => 'required|numeric|exists:sub_categories,id',
             'city_id' => 'required|numeric|exists:cities,id',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180'
         ];
     }
 }

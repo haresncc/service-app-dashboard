@@ -23,7 +23,6 @@ class SubCategorySeeder extends Seeder
                 ['name' => 'شحن', 'name_en' => 'Transport'],
             ],
             'سيارات' => [
-                ['name' => 'تأجير سيارات', 'name_en' => 'Car Rental'],
                 ['name' => 'تصليح سيارات', 'name_en' => 'Car Repair'],
                 ['name' => 'قطع غيار', 'name_en' => 'Spare Parts'],
                 ['name' => 'غسيل سيارات', 'name_en' => 'Car Wash'],
@@ -46,7 +45,6 @@ class SubCategorySeeder extends Seeder
             'صحة' => [
                 ['name' => 'مستشفيات', 'name_en' => 'Hospitals'],
                 ['name' => 'عيادات', 'name_en' => 'Clinics'],
-                ['name' => 'أطباء', 'name_en' => 'Doctors'],
                 ['name' => 'صيدليات', 'name_en' => 'Pharmacies'],
                 ['name' => 'مختبرات', 'name_en' => 'Labs'],
             ],

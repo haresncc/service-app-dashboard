@@ -131,8 +131,8 @@ class ServiceController extends Controller
     protected function getJosnData()
     {
         return [
-            ['subCatg' => 'تأجير سيارات', 'information' => ['model' => 'text', 'car_no' => 'text', 'work_line' => 'text']],
-            ['subCatg' => 'أطباء', 'information' => ['from_time' => 'time', 'to_time' => 'time', 'work_days' => 'text']]
+            ['category' => 'تاجير سيارات', 'information' => ['model' => 'text', 'car_no' => 'text', 'work_line' => 'text']],
+            ['category' => 'اطباء', 'information' => ['from_time' => 'time', 'to_time' => 'time', 'work_days' => 'text']]
         ];
     }
 }

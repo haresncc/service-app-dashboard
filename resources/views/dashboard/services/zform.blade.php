@@ -1,6 +1,6 @@
 <div class="form-row">
     <x-form.select name="category_id" :selected="$service->subcategory->category_id ?? ''" displaynam="Category" :options="$categories" required size="3" onchange="fillSubCategories()"/>
-    <x-form.select name="sub_category_id" :selected="$service->sub_category_id ?? ''" displaynam="SubCategory" :options="[]" required  size="3" onchange="addJsonInputs()"/>
+    <x-form.select name="sub_category_id" :selected="$service->sub_category_id ?? ''" displaynam="SubCategory" :options="[]" required  size="3"/>
     <x-form.input name="name" :value="$service->name ?? ''" displaynam="Arabic Name" required  size="3" autocomplete="off"/>
     <x-form.input name="name_en" :value="$service->name_en ?? ''" displaynam="English Name" required  size="3"/>
 </div>
@@ -40,10 +40,11 @@
     window.onload = function() {
         if(document.getElementById("category_id").value !='') {
             fillSubCategories();
-        };
-        if(document.getElementById("sub_category_id").value !='') {
             addJsonInputs();
         };
+        // if(document.getElementById("sub_category_id").value !='') {
+        //     addJsonInputs();
+        // };
         if(document.getElementById("latitude").value =='') {
             getLoaction();
             console.log('ok');
@@ -52,7 +53,7 @@
     function fillSubCategories() {
         let subCatgoriesElement =document.getElementById("sub_category_id");
         const selectedCategory=document.getElementById("category_id").value;
-        const service = {{ Illuminate\Support\Js::from($service ?? null) }};
+        const service = {{ Illuminate\Support\Js::from($service->except('coordinates') ?? null) }};
         const categories = {{ Illuminate\Support\Js::from($categories ?? null) }};
         const subcategoriesList = categories.filter(
                 (category) => category.id == selectedCategory,
@@ -76,6 +77,7 @@
         if(oldSubCategory != null) {
             subCatgoriesElement.value=oldSubCategory;
         }
+        addJsonInputs();
     }
 
     function validateMyForm() {
@@ -124,18 +126,18 @@
     }
 
     function addJsonInputs () {
-        const service = {{ Illuminate\Support\Js::from($service ?? null) }};
+        const service = {{ Illuminate\Support\Js::from($service->except('coordinates') ?? null) }};
         const oldRequest = {{ Illuminate\Support\Js::from(old('information') ?? null) }};
         let jsonCurrentData=[]
         if (service != null) {
             jsonCurrentData= JSON.parse(service.information);
         }
-        const selectElement = document.getElementById("sub_category_id");
+        const selectElement = document.getElementById("category_id");
         const container = document.getElementById('inputContainer');
         container.innerHTML="";
         const jsonInfos={{ Illuminate\Support\Js::from($jsonInfos ?? null) }};
         const text = selectElement.options[selectElement.selectedIndex].text;
-        const Inputs = jsonInfos.filter((jsonInfo) => jsonInfo.subCatg == text)[0];
+        const Inputs = jsonInfos.filter((jsonInfo) => jsonInfo.category == text)[0];
         if (Inputs !=null) {
             Object.entries(Inputs.information).forEach(([key, value]) => {
             // Create a wrapper div for structural styling and easy removal

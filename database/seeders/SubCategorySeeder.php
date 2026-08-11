@@ -12,12 +12,36 @@ class SubCategorySeeder extends Seeder
     public function run(): void
     {
         $sub_categories = [
+            'تاجير سيارات' => [
+                ['name' => 'ميكروباص', 'name_en' => ''],
+                ['name' => 'ميني باص', 'name_en' => 'Microbus'],
+                ['name' => 'تنايه', 'name_en' => 'Tenya'],
+                ['name' => 'بيجو 7', 'name_en' => 'Bego 7'],
+                ['name' => 'بيجو 4', 'name_en' => 'Bego 4'],
+                ['name' => 'ملاكي', 'name_en' => 'Private car'],
+                ['name' => 'نص نقل', 'name_en' => 'truck'],
+                ['name' => 'شحن', 'name_en' => 'Transport'],
+            ],
             'سيارات' => [
                 ['name' => 'تأجير سيارات', 'name_en' => 'Car Rental'],
                 ['name' => 'تصليح سيارات', 'name_en' => 'Car Repair'],
                 ['name' => 'قطع غيار', 'name_en' => 'Spare Parts'],
                 ['name' => 'غسيل سيارات', 'name_en' => 'Car Wash'],
                 ['name' => 'ونش و نقل', 'name_en' => 'Towing & Transport'],
+            ],
+            'اطباء' => [
+                ['name' => 'اسنان', 'name_en' => 'Tooth'],
+                ['name' => 'باطنه', 'name_en' => 'Internal Medicine'],
+                ['name' => 'اطفال', 'name_en' => 'Pediatrics'],
+                ['name' => 'قلب واعيه دمويه', 'name_en' => 'Cardiology'],
+                ['name' => 'صدر', 'name_en' => 'Pulmonology'],
+                ['name' => 'مخ واعصاب', 'name_en' => 'Neurology and Psychiatry'],
+                ['name' => 'جلديه وتناسليه', 'name_en' => 'Dermatology and Venereology'],
+                ['name' => 'علاج الطبيعي', 'name_en' => 'Natural treatment'],
+                ['name' => 'انف واذن وحنجره', 'name_en' => 'Ear, Nose and Throat'],
+                ['name' => 'مسالك بوليه', 'name_en' => 'Urology'],
+                ['name' => 'عيون', 'name_en' => 'Ophthalmology'],
+
             ],
             'صحة' => [
                 ['name' => 'مستشفيات', 'name_en' => 'Hospitals'],

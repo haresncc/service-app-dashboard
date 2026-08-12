@@ -195,38 +195,37 @@
         }
     }
 
-    // Success callback function
+    // Success callback function Location
     function successCallback(position) {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    
-    //   const googleMapsUrl = `https://google.com{latitude},${longitude}`;
-    //   const openStreetMapUrl = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        
+        //   const googleMapsUrl = `https://google.com{latitude},${longitude}`;
+        //   const openStreetMapUrl = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
 
-    //   console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-    //   console.log("Google Maps Link:", googleMapsUrl);
-    //   console.log("OpenStreetMap Link:", openStreetMapUrl);
-    document.getElementById('latitude').value=latitude;
-    document.getElementById('longitude').value=longitude;
-
+        //   console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+        //   console.log("Google Maps Link:", googleMapsUrl);
+        //   console.log("OpenStreetMap Link:", openStreetMapUrl);
+        document.getElementById('latitude').value=latitude;
+        document.getElementById('longitude').value=longitude;
     }
 
-        // Error callback function
+        // Error callback function Location
     function errorCallback(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-        console.error("User denied the request for Geolocation.");
-        break;
-        case error.POSITION_UNAVAILABLE:
-        console.error("Location information is unavailable.");
-        break;
-        case error.TIMEOUT:
-        console.error("The request to get user location timed out.");
-        break;
-        case error.UNKNOWN_ERROR:
-        console.error("An unknown error occurred.");
-        break;
-    }
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+            console.error("User denied the request for Geolocation.");
+            break;
+            case error.POSITION_UNAVAILABLE:
+            console.error("Location information is unavailable.");
+            break;
+            case error.TIMEOUT:
+            console.error("The request to get user location timed out.");
+            break;
+            case error.UNKNOWN_ERROR:
+            console.error("An unknown error occurred.");
+            break;
+        }
     }
 
     $(document).ready(function() {

@@ -54,6 +54,12 @@ class ServiceController extends Controller
         $data['user_id'] = Auth::id();
         $data['slug'] = Str::slug($data['name']);
         $data = Helper::storeFiles($data, ['image1' => 'image']);
+        $subCategory = SubCategory::findOrFail($data['sub_category_id']);
+        if ($subCategory->excat_location == false) {
+            $city = City::findOrFail($data['city_id']);
+            $data['latitude'] = $city->latitude;
+            $data['longitude'] = $city->longitude;
+        }
 
         // Construct standard WKT representation: POINT(longitude latitude)
         $wktPoint = "POINT({$data['longitude']} {$data['latitude']})";

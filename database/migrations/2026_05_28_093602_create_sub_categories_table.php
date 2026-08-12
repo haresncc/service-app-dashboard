@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('image')->nullable();
             $table->unsignedBigInteger('category_id');
+            $table->boolean('excat_location')->default(1);
             $table->boolean('active')->default(0);
             $table->timestamps();
 

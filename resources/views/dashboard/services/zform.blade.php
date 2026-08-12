@@ -21,7 +21,12 @@
         <input type="checkbox" class="form-check-input ml-1" id="confirmed" name="confirmed"
             value="1" @checked($service->confirmed ?? false)>
         <label class="form-check-label ml-4 mb-2" for="confirmed">{{ __('Cofirmed') }}</label>
-    </div>  
+    </div>
+    <div class="form-group col-md-2 ml-1">
+        <input type="checkbox" class="form-check-input ml-1" id="update-location" name="update-location"
+            value="1" onclick="updateLocation()">
+        <label class="form-check-label ml-4 mb-2" for="update-location">{{ __('Update Loc') }}</label>
+    </div>
     <x-form.input name="latitude" :value="$service->latitude ?? ''" displaynam="Latitude" required  size="3" autocomplete="off"/>
     <x-form.input name="longitude" :value="$service->longitude ?? ''" displaynam="Longitude" required  size="3" autocomplete="off"/>
 </div>
@@ -47,7 +52,6 @@
         // };
         if(document.getElementById("latitude").value =='') {
             getLoaction();
-            console.log('ok');
         };
     };
     function fillSubCategories() {
@@ -202,10 +206,6 @@
         
         //   const googleMapsUrl = `https://google.com{latitude},${longitude}`;
         //   const openStreetMapUrl = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-
-        //   console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-        //   console.log("Google Maps Link:", googleMapsUrl);
-        //   console.log("OpenStreetMap Link:", openStreetMapUrl);
         document.getElementById('latitude').value=latitude;
         document.getElementById('longitude').value=longitude;
     }
@@ -227,7 +227,11 @@
             break;
         }
     }
-
+    function updateLocation() {
+        if(document.getElementById("update-location").checked) {
+            getLoaction();
+        }
+    }
     $(document).ready(function() {
         var cities = {{ Illuminate\Support\Js::from($cities ?? null) }};
         var currentCity = {{ Illuminate\Support\Js::from($service->city_id ?? null) }};

@@ -115,10 +115,19 @@ class ServiceController extends Controller
         $data['slug'] = Str::slug($data['name']);
 
         !($request->hasFile('image1') && $service->image) ?: $deleteFiles[] = $service->image;
+        $msgUpdate = "Updated successfully";
+        $excatLocation = SubCategory::findOrFail($data['sub_category_id'])->excat_location;
+        if (isset($data['update-location']) && $excatLocation) {
+            $wktPoint = "POINT({$data['longitude']} {$data['latitude']})";
+            $data['coordinates'] = DB::raw("ST_PointFromText('{$wktPoint}', 4326)");
+            $msgUpdate = $msgUpdate . ' With Location';
+        } else {
+            unset($data["latitude"], $data["longitude"]);
+        }
         $service->update($data);
 
         empty($deleteFiles) ?: Helper::deleteFiles($deleteFiles);
-        return redirect()->route('dashboard.services.index')->with('success', __('Updated successfully'));
+        return redirect()->route('dashboard.services.index')->with('success', __($msgUpdate));
     }
 
     /**

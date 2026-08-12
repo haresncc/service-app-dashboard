@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name', length: 50);
             $table->string('slug')->unique();
-            // $table->geography('longitude', subtype: 'point', srid: 4326);
-            // $table->geography('latitude', subtype: 'point', srid: 4326);
-            $table->geometry('longitude', subtype: 'point', srid: 0)->nullable();
-            $table->geometry('latitude', subtype: 'point', srid: 0)->nullable();
+            // $table->geometry('longitude', subtype: 'point', srid: 0)->nullable();
+            // $table->geometry('latitude', subtype: 'point', srid: 0)->nullable();
+            $table->decimal('latitude', total: 10, places: 8);
+            $table->decimal('longitude', total: 11, places: 8);
             $table->unsignedBigInteger('district_id');
             $table->timestamps();
 

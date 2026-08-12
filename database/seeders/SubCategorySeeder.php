@@ -13,8 +13,8 @@ class SubCategorySeeder extends Seeder
     {
         $sub_categories = [
             'تاجير سيارات' => [
-                ['name' => 'ميكروباص', 'name_en' => ''],
-                ['name' => 'ميني باص', 'name_en' => 'Microbus'],
+                ['name' => 'ميكروباص', 'name_en' => 'Microbus'],
+                ['name' => 'ميني باص', 'name_en' => 'Minibus'],
                 ['name' => 'تنايه', 'name_en' => 'Tenya'],
                 ['name' => 'بيجو 7', 'name_en' => 'Bego 7'],
                 ['name' => 'بيجو 4', 'name_en' => 'Bego 4'],

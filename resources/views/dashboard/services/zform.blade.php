@@ -44,6 +44,8 @@
 <x-waring />
 
 @push('custom-scripts')
+<script src="{{ asset('dist/js/myScript.js') }}"></script>
+<script src="{{ asset('dist/js/myLocation.js') }}"></script>
 <script>
     window.onload = function() {
         if(document.getElementById("category_id").value !='') {
@@ -85,79 +87,6 @@
             subCatgoriesElement.value=oldSubCategory;
         }
         addJsonInputs();
-    }
-
-    function validateMyForm() {
-            let validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-            let f1 = document.getElementById("image1");
-            let f2 = document.getElementById("image2");
-            let f3 = document.getElementById("image3");
-            let warDiv = document.getElementById("waring-div");
-            let wartxt = document.getElementById("waring-txt");
-
-            warDiv.style.display = "none";
-            if (f1.files.length > 0) {
-                if (!validImageTypes.includes(f1.files[0].type)) {
-                    // alert("Please select image Only for card 1");
-                    warDiv.style.display = "block";
-                    wartxt.innerHTML = "Please select image Only for Image 1"
-                    return false;
-                };
-                if (f1.files[0].size > 10 * 1024 * 1024) {
-                    // alert("Please select size less than 10 MB for card 1");
-                    warDiv.style.display = "block";
-                    wartxt.innerHTML = "Please select size less than 10 MB for Image 1"
-                    return false;
-                };
-            };
-            if (f2.files.length > 0) {
-                if (!validImageTypes.includes(f2.files[0].type)) {
-                    // alert("Please select image Only for card 2");
-                    warDiv.style.display = "block";
-                    wartxt.innerHTML = "Please select image Only for Image 2"
-                    return false;
-                };
-                if (f2.files[0].size > 10 * 1024 * 1024) {
-                    // alert("Please select size less than 10 MB for card2");
-                    warDiv.style.display = "block";
-                    wartxt.innerHTML = "Please select size less than 10 MB for Image 2"
-                    return false;
-                };
-            };
-            if (f3.files.length > 0) {
-                if (!validImageTypes.includes(f3.files[0].type) && f3.files[0].type !== 'application/pdf') {
-                    warDiv.style.display = "block";
-                    wartxt.innerHTML = "Please select image Only for Image 3"
-                    return false;
-                };
-                if (f3.files[0].size > 50 * 1024 * 1024) {
-                    warDiv.style.display = "block";
-                    wartxt.innerHTML = "Please select size less than 10 MB for Image 2"
-                    return false;
-                };
-            }
-            return true;
-    };
-
-
-    function readURL(input) {
-        let imgShow = document.querySelector('#' + input.id + '-divshow img');
-        let imgShowDiv = document.querySelector('#' + input.id + '-divshow');
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                if (imgShow !== null) {
-                    imgShow.setAttribute("src", e.target.result);
-                };
-                imgShowDiv.style.visibility = "visible";
-            };
-            reader.readAsDataURL(input.files[0]);
-        } else {
-            if (imgShow !== null) {
-                imgShow.setAttribute("src", '');
-            };
-            imgShowDiv.style.visibility = "hidden";
-        }
     }
 
     function addJsonInputs () {
@@ -218,51 +147,6 @@
         }
     }
 
-    function getLoaction() {
-        if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(successCallback, errorCallback, {
-            enableHighAccuracy: true, // Uses GPS if available for better precision
-            timeout: 7000,            // Time to wait for a response (in ms)
-            maximumAge: 0             // Forces the browser to get a fresh location
-        });
-        } else {
-        console.log("Geolocation is not supported by this browser.");
-        }
-    }
-
-    // Success callback function Location
-    function successCallback(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        
-        //   const googleMapsUrl = `https://google.com{latitude},${longitude}`;
-        //   const openStreetMapUrl = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-        document.getElementById('latitude').value=latitude;
-        document.getElementById('longitude').value=longitude;
-    }
-
-        // Error callback function Location
-    function errorCallback(error) {
-        switch(error.code) {
-            case error.PERMISSION_DENIED:
-            console.error("User denied the request for Geolocation.");
-            break;
-            case error.POSITION_UNAVAILABLE:
-            console.error("Location information is unavailable.");
-            break;
-            case error.TIMEOUT:
-            console.error("The request to get user location timed out.");
-            break;
-            case error.UNKNOWN_ERROR:
-            console.error("An unknown error occurred.");
-            break;
-        }
-    }
-    function updateLocation() {
-        if(document.getElementById("update-location").checked) {
-            getLoaction();
-        }
-    }
     $(document).ready(function() {
         var cities = {{ Illuminate\Support\Js::from($cities ?? null) }};
         var currentCity = {{ Illuminate\Support\Js::from($service->city_id ?? null) }};

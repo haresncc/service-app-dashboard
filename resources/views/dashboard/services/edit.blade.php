@@ -12,7 +12,7 @@
         </div>
         <x-alert />
         <form method="POST" action={{ route('dashboard.services.update', $service->uuid) }} class="m-3" enctype="multipart/form-data"
-            onsubmit="return validateMyForm();">
+            onsubmit="return validateMyForm(3);">
             @csrf
             @method('PUT')
             @include('dashboard.services.zform')

@@ -12,7 +12,7 @@
         </div>
         <x-alert />
         <form method="POST" action={{ route('dashboard.services.store') }} class="m-3" enctype="multipart/form-data"
-            onsubmit="return validateMyForm();">
+            onsubmit="return validateMyForm(3);">
             @csrf
             @include('dashboard.services.zform')
             <x-form.button class="btn-success" displaynam="{{ __('Save') }}" />

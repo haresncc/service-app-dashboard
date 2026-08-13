@@ -53,7 +53,7 @@ class ServiceController extends Controller
         $data = $request->all();
         $data['user_id'] = Auth::id();
         $data['slug'] = Str::slug($data['name']);
-        $data = Helper::storeFiles($data, ['image1' => 'image']);
+        $data = Helper::storeFiles($data, ['image1' => 'image', 'image2' => 'image2', 'image3' => 'image3']);
         $subCategory = SubCategory::findOrFail($data['sub_category_id']);
         if ($subCategory->excat_location == false) {
             $city = City::findOrFail($data['city_id']);
@@ -77,8 +77,8 @@ class ServiceController extends Controller
         $Service = $srv->getAttributes();
         $Service['city_id'] = $srv->city->name;
         $Service['sub_category_id'] = $srv->subCategory->name;
-        $imgAr = ['img1' => $Service["image"]];
-        unset($Service["image"]);
+        $imgAr = ['img1' => $Service["image"], 'img2' => $Service["image2"], 'img3' => $Service["image3"]];
+        unset($Service["image"], $Service["image2"], $Service["image3"]);
         $newAr = array_keys($Service);
         return view('dashboard.services.show', ['showArr' => $Service, 'source' => 'services', 'keys' => $newAr, 'imgAr' => $imgAr]);
     }
@@ -111,10 +111,12 @@ class ServiceController extends Controller
         $data['confirmed'] = isset($data['confirmed']);
         $service = Service::findOrFail($uuid);
 
-        $data = Helper::storeFiles($data, ['image1' => 'image']);
+        $data = Helper::storeFiles($data, ['image1' => 'image', 'image2' => 'image2', 'image3' => 'image3']);
         $data['slug'] = Str::slug($data['name']);
 
         !($request->hasFile('image1') && $service->image) ?: $deleteFiles[] = $service->image;
+        !($request->hasFile('image2') && $service->image2) ?: $deleteFiles[] = $service->image2;
+        !($request->hasFile('image3') && $service->image3) ?: $deleteFiles[] = $service->image3;
         $msgUpdate = "Updated successfully";
         $excatLocation = SubCategory::findOrFail($data['sub_category_id'])->excat_location;
         if (isset($data['update-location']) && $excatLocation) {
@@ -139,6 +141,8 @@ class ServiceController extends Controller
 
         $service->delete();
         !($service->image) ?: $deleteFiles[] = $service->image;
+        !($service->image2) ?: $deleteFiles[] = $service->image2;
+        !($service->image3) ?: $deleteFiles[] = $service->image3;
         empty($deleteFiles) ?: Helper::deleteFiles($deleteFiles);
         return redirect()->route('dashboard.services.index')->with('success', __('Deleted successfully'));
     }

@@ -4,7 +4,7 @@
     <x-form.input name="name" :value="$service->name ?? ''" displaynam="Arabic Name" required  size="3" autocomplete="off"/>
     <x-form.input name="name_en" :value="$service->name_en ?? ''" displaynam="English Name" required  size="3"/>
 </div>
-<div class="form-row">
+<div class="form-row align-items-center">
      <x-form.input name="phone_number" :value="$service->phone_number ?? ''" displaynam="phone_no1" size=2 />   
      <x-form.input name="phone_number2" :value="$service->phone_number2 ?? ''" displaynam="phone_no2" size=2 />   
     <div class="form-group col-md-4 mt-1">
@@ -13,20 +13,23 @@
             <option></option> 
         </select>
     </div>
-    <x-form.inputfile name="image1" displaynam="Card1" size=4 :value="$service->image ?? ''" onchange="readURL(this)" accept="image/*" />  
-</div>
-{{-- Seprator --}}
-<div class="form-row align-items-center">
-    <div class="form-group col-md-2 ml-1">
+    <div class="form-group col-md-2 mb-0 mt-2">
         <input type="checkbox" class="form-check-input ml-1" id="confirmed" name="confirmed"
-            value="1" @checked($service->confirmed ?? false)>
+        value="1" @checked($service->confirmed ?? false)>
         <label class="form-check-label ml-4 mb-2" for="confirmed">{{ __('Cofirmed') }}</label>
     </div>
-    <div class="form-group col-md-2 ml-1">
+    <div class="form-group col-md-2 mb-0 mt-2">
         <input type="checkbox" class="form-check-input ml-1" id="update-location" name="update-location"
-            value="1" onclick="updateLocation()">
+        value="1" onclick="updateLocation()">
         <label class="form-check-label ml-4 mb-2" for="update-location">{{ __('Update Loc') }}</label>
     </div>
+</div>
+{{-- Seprator --}}
+<div class="form-row">
+    <x-form.inputfile name="image1" displaynam="Image1" size=4 :value="$service->image ?? ''" onchange="readURL(this)" accept="image/*" />  
+    <x-form.inputfile name="image2" displaynam="Image2" size=4 :value="$service->image2 ?? ''" onchange="readURL(this)" accept="image/*" />  
+    <x-form.inputfile name="image3" displaynam="Image3" size=4 :value="$service->image3 ?? ''" onchange="readURL(this)" accept="image/*" />  
+
     <x-form.input name="latitude" :value="$service->latitude ?? ''" displaynam="Latitude" required  size="3" autocomplete="off"/>
     <x-form.input name="longitude" :value="$service->longitude ?? ''" displaynam="Longitude" required  size="3" autocomplete="off"/>
 </div>
@@ -85,29 +88,57 @@
     }
 
     function validateMyForm() {
-        let validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-        let f1 = document.getElementById("image1");
-        let warDiv = document.getElementById("waring-div");
-        let wartxt = document.getElementById("waring-txt");
+            let validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+            let f1 = document.getElementById("image1");
+            let f2 = document.getElementById("image2");
+            let f3 = document.getElementById("image3");
+            let warDiv = document.getElementById("waring-div");
+            let wartxt = document.getElementById("waring-txt");
 
-        warDiv.style.display = "none";
-        if (f1.files.length > 0) {
-            if (!validImageTypes.includes(f1.files[0].type)) {
-                // alert("Please select image Only for card 1");
-                warDiv.style.display = "block";
-                wartxt.innerHTML = "Please select image Only for card 1"
-                return false;
+            warDiv.style.display = "none";
+            if (f1.files.length > 0) {
+                if (!validImageTypes.includes(f1.files[0].type)) {
+                    // alert("Please select image Only for card 1");
+                    warDiv.style.display = "block";
+                    wartxt.innerHTML = "Please select image Only for Image 1"
+                    return false;
+                };
+                if (f1.files[0].size > 10 * 1024 * 1024) {
+                    // alert("Please select size less than 10 MB for card 1");
+                    warDiv.style.display = "block";
+                    wartxt.innerHTML = "Please select size less than 10 MB for Image 1"
+                    return false;
+                };
             };
-            if (f1.files[0].size > 10 * 1024 * 1024) {
-                // alert("Please select size less than 10 MB for card 1");
-                warDiv.style.display = "block";
-                wartxt.innerHTML = "Please select size less than 10 MB for card 1"
-                return false;
+            if (f2.files.length > 0) {
+                if (!validImageTypes.includes(f2.files[0].type)) {
+                    // alert("Please select image Only for card 2");
+                    warDiv.style.display = "block";
+                    wartxt.innerHTML = "Please select image Only for Image 2"
+                    return false;
+                };
+                if (f2.files[0].size > 10 * 1024 * 1024) {
+                    // alert("Please select size less than 10 MB for card2");
+                    warDiv.style.display = "block";
+                    wartxt.innerHTML = "Please select size less than 10 MB for Image 2"
+                    return false;
+                };
             };
-        };
-       
-        return true;
+            if (f3.files.length > 0) {
+                if (!validImageTypes.includes(f3.files[0].type) && f3.files[0].type !== 'application/pdf') {
+                    warDiv.style.display = "block";
+                    wartxt.innerHTML = "Please select image Only for Image 3"
+                    return false;
+                };
+                if (f3.files[0].size > 50 * 1024 * 1024) {
+                    warDiv.style.display = "block";
+                    wartxt.innerHTML = "Please select size less than 10 MB for Image 2"
+                    return false;
+                };
+            }
+            return true;
     };
+
 
     function readURL(input) {
         let imgShow = document.querySelector('#' + input.id + '-divshow img');

@@ -28,6 +28,8 @@ class Service extends Model
         'name_en',
         'slug',
         'image',
+        'image2',
+        'image3',
         'phone_number',
         'phone_number2',
         'information',

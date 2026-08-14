@@ -22,11 +22,12 @@
             @foreach ($datas as $data)
                 <tr>
                     @foreach ($fields as $field)
-                        @if (in_array($field, ['card_img1', 'card_img2', 'hire_img', 'contract_doc', 'ekr_img1']))
+                        @if (in_array($field, ['image', 'image2', 'image3']))
                         <td> @empty($data->$field)
                                 {{ '-' }}
                             @else
-                                <a href="{{ asset('uploads/' . $data->$field) }}" target="_blank">{{ __('File') }}</a>
+                                {{-- <a href="{{ asset('uploads/' . $data->$field) }}" target="_blank">{{ __('File') }}</a> --}}
+                                <img style="width:50px;height:40px;border:1px solid blue" src="{{ asset('storage/uploads/' . $data->$field) }}" alt="No img">
                             @endempty
                         </td>
                         @continue
@@ -68,13 +69,10 @@
                                 class="btn btn-info btn-sm">{{ __('View') }}</a>
                         @endif
                         @if (in_array('edit', $action))
-                            @can('edit ' . $name)
                                 <a href="{{ route('dashboard.' . $name . '.edit', $data->id) }}"
                                     class="btn btn-primary btn-sm">{{ __('Edit') }}</a>
-                            @endcan
                         @endif
                         @if (in_array('delete', $action))
-                            @can('delete ' . $name)
                                 <form style="display:inline;" method="POST"
                                     action="{{ route('dashboard.' . $name . '.destroy', $data->id) }}">
                                     @csrf
@@ -82,7 +80,6 @@
                                     <button onclick="return confirmDelFn();" type="submit"
                                         class="btn btn-danger btn-sm">{{ __('Delete') }}</button>
                                 </form>
-                            @endcan
                         @endif
                         @if (in_array('print', $action))
                             <a href="{{ route('dashboard.' . $name . '.print', $data->id) }}" target="_blank"

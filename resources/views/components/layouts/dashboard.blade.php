@@ -110,6 +110,13 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                             <li class="nav-item">
+                                <a href="{{ route('dashboard.sub-categories.index') }}"
+                                    class="nav-link {{ str_contains(Route::currentRouteName(), 'sub-categories') ? 'active' : '' }}">
+                                    <i class="fas fa-stream nav-icon"></i>
+                                    <p>{{ __('SubCategory') }}</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('dashboard.services.index') }}"
                                     class="nav-link {{ str_contains(Route::currentRouteName(), 'services') ? 'active' : '' }}">
                                     <i class="far fa-calendar-plus nav-icon"></i>

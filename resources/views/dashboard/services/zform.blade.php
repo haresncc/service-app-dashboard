@@ -32,6 +32,7 @@
 
     <x-form.input name="latitude" :value="$service->latitude ?? ''" displaynam="Latitude" required  size="3" autocomplete="off"/>
     <x-form.input name="longitude" :value="$service->longitude ?? ''" displaynam="Longitude" required  size="3" autocomplete="off"/>
+    <x-form.select name="priority" :selected="$service->priority ?? ''" displaynam="Priority" :options="$priorities" size="3"/>    
 </div>
 <div class="d-flex align-items-center my-4">
     <span class="mx-3 text-muted">Information</span>

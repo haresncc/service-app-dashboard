@@ -26,6 +26,7 @@ return new class extends Migration
             $table->decimal('longitude', total: 11, places: 8);
             // Creates a native POINT column restricted to SRID 4326
             $table->geography('coordinates', 'point', 4326);
+            $table->tinyInteger('priority')->default(0);
             $table->boolean('confirmed')->default(0);
             // add show peirority
             $table->json('information')->nullable();

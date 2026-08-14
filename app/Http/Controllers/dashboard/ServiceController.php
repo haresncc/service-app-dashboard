@@ -42,7 +42,8 @@ class ServiceController extends Controller
             ];
         })->toArray();
         $allInformation = $this->getJosnData();
-        return view('dashboard.services.create', ['categories' => $allCategories, 'cities' => $cities, 'subCategories' => [], 'jsonInfos' => $allInformation]);
+        $priorities = [['id' => '1', 'name' => 'Low'], ['id' => '2', 'name' => 'Medium'], ['id' => '3', 'name' => 'High'], ['id' => '4', 'name' => 'Vip']];
+        return view('dashboard.services.create', ['categories' => $allCategories, 'cities' => $cities, 'subCategories' => [], 'jsonInfos' => $allInformation, 'priorities' => $priorities]);
     }
 
     /**
@@ -99,7 +100,8 @@ class ServiceController extends Controller
             ];
         })->toArray();
         $allInformation = $this->getJosnData();
-        return view('dashboard.services.edit', ['categories' => $allCategories, 'cities' => $cities, 'subCategories' => $subCategories, 'service' => $service, 'jsonInfos' => $allInformation]);
+        $priorities = [['id' => '1', 'name' => 'Low'], ['id' => '2', 'name' => 'Medium'], ['id' => '3', 'name' => 'High'], ['id' => '4', 'name' => 'Vip']];
+        return view('dashboard.services.edit', ['categories' => $allCategories, 'cities' => $cities, 'subCategories' => $subCategories, 'service' => $service, 'jsonInfos' => $allInformation, 'priorities' => $priorities]);
     }
 
     /**

@@ -39,6 +39,7 @@ class Service extends Model
         'latitude',
         'longitude',
         'coordinates',
+        'priority',
         'confirmed',
     ];
 

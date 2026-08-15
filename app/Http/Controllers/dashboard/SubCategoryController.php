@@ -4,6 +4,7 @@ namespace App\Http\Controllers\dashboard;
 
 use App\Helper\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubCategoryRequest;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class SubCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SubCategoryRequest $request)
     {
         $data = $request->all();
         $data['user_id'] = Auth::id();
@@ -80,7 +81,7 @@ class SubCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SubCategoryRequest $request, string $id)
     {
         $data = $request->all();
         $subCategory = SubCategory::findOrFail($id);

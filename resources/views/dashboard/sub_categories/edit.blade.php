@@ -12,7 +12,7 @@
         </div>
         <x-alert />
         <form method="POST" action={{ route('dashboard.sub-categories.update', $subCategory->id) }} class="m-3" enctype="multipart/form-data"
-            onsubmit="return validateMyForm(3);">
+            onsubmit="return validateMyForm(1);">
             @csrf
             @method('PUT')
             @include('dashboard.sub_categories.zform')

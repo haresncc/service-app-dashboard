@@ -22,7 +22,7 @@
             @foreach ($datas as $data)
                 <tr>
                     @foreach ($fields as $field)
-                        @if (in_array($field, ['card_img1', 'card_img2', 'hire_img', 'contract_doc', 'ekr_img1']))
+                        @if (in_array($field, ['image', 'image2', 'image2']))
                         <td> @empty($data->$field)
                                 {{ '-' }}
                             @else
@@ -37,7 +37,7 @@
                         </td>
                         @continue
                     @endif
-                    @if (in_array($field, ['close_inv', 'active']))
+                    @if (in_array($field, ['excat_location', 'active','confirmed']))
                         @if (!$data->$field)
                             <td> <i class="{{ $iconoff }}" style="color: #dd0e0e;"></i> </td>
                         @else
@@ -79,10 +79,6 @@
                                     <button onclick="return confirmDelFn();" type="submit"
                                         class="btn btn-danger btn-sm">{{ __('Delete') }}</button>
                                 </form>
-                        @endif
-                        @if (in_array('print', $action))
-                            <a href="{{ route('dashboard.' . $name . '.print', $data->uuid) }}" target="_blank"
-                                class="btn btn-primary btn-sm">{{ __('Print') }}</a>
                         @endif
                     </td>
                 @endif

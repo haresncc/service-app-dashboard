@@ -17,6 +17,7 @@
             <x-form.button usedfor="filter" displaynam="{{ __('Filter') }}" size=1 />
         </div>
     </form>
-    <x-tableuuid name="services" :datas="$services" :dataheaders="[ 'name', 'subcategory', 'category','city','action']" :fields="[ 'name', ['subcategory', 'name'], ['subcategory','category', 'name'], ['city', 'name']]" />
+    <x-tableuuid name="services" :datas="$services" :dataheaders="[ 'name', 'subcategory', 'category','city','confirmed','action']" :fields="[ 'name', ['subcategory', 'name'], ['subcategory','category', 'name'], ['city', 'name'],'confirmed']"
+    iconon="fas fa-check" style="color: rgb(74, 211, 41);" iconoff="fas fa-times" style="color: rgb(239, 60, 22);"/>
 
 </x-layouts.dashboard>

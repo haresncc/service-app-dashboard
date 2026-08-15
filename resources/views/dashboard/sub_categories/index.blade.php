@@ -16,6 +16,7 @@
             <x-form.button usedfor="filter" displaynam="{{ __('Filter') }}" size=1 />
         </div>
     </form>
-    <x-table name="sub-categories" :datas="$subCategories" :dataheaders="[ 'name', 'category','image','Action']" :fields="[ 'name', ['category', 'name'],'image']" />
+    <x-table name="sub-categories" :datas="$subCategories" :dataheaders="[ 'name', 'category','active','excat_location','image','Action']" :fields="[ 'name', ['category', 'name'],'active','excat_location','image']" 
+    iconon="fas fa-check" style="color: rgb(74, 211, 41);" iconoff="fas fa-times" style="color: rgb(239, 60, 22);"/>
 
 </x-layouts.dashboard>

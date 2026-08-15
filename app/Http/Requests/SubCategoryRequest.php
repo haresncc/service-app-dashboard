@@ -38,8 +38,8 @@ class SubCategoryRequest extends FormRequest
                 }),
             ],
             'category_id' => 'required|numeric|exists:categories,id',
-            'excat_location' => 'nullable|boolean',
-            'active' => 'nullable|boolean',
+            'excat_location' => 'required|boolean',
+            'active' => 'required|boolean',
             // 'image' => 
         ];
     }

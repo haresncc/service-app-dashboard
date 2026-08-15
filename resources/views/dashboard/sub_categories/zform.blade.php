@@ -6,8 +6,8 @@
 
 <div class="form-row">
     <x-form.inputfile name="image1" displaynam="Image1" size=4 :value="$subCategory->image ?? ''" onchange="readURL(this)" accept="image/*" />  
-    <x-form.select name="excat_location" :selected="$subCategory->excat_location ?? ''" displaynam="Excat Location" :options="$excatLocationAr" size="3"/>    
-    <x-form.select name="active" :selected="$subCategory->active ?? ''" displaynam="Active" :options="$activeAr" size="3"/>    
+    <x-form.select name="excat_location" :selected="$subCategory->excat_location ?? ''" displaynam="Excat Location" :options="$excatLocationAr" size="3" :blankitem="false"/>    
+    <x-form.select name="active" :selected="$subCategory->active ?? ''" displaynam="Active" :options="$activeAr" size="3" :blankitem="false"/>    
 </div>
 <x-waring />
 

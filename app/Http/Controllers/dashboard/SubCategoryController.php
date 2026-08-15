@@ -41,7 +41,6 @@ class SubCategoryController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        dd($data);
         $data['user_id'] = Auth::id();
         $data['slug'] = Str::slug($data['name']);
         $data = Helper::storeFiles($data, ['image1' => 'image']);

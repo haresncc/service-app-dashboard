@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
 class CategoryRequest extends FormRequest
 {
@@ -25,6 +26,9 @@ class CategoryRequest extends FormRequest
         $id = $this->route('category');
         return [
             'name' => 'required|string|min:3|max:50|unique:categories,name,' . $id,
+            'name_en' => 'required|string|min:3|max:50',
+            'image' => File::image()->max(5 * 1024),
+            'active' => 'required|boolean',
             // 'image' => 
         ];
     }

@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 
 class SubCategoryRequest extends FormRequest
 {
@@ -40,6 +41,7 @@ class SubCategoryRequest extends FormRequest
             'category_id' => 'required|numeric|exists:categories,id',
             'excat_location' => 'required|boolean',
             'active' => 'required|boolean',
+            'image' => File::image()->max(5 * 1024),
             // 'image' => 
         ];
     }

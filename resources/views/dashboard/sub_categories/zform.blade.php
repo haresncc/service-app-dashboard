@@ -1,5 +1,5 @@
 <div class="form-row">
-    <x-form.select name="category_id" :selected="$subCategory->category_id ?? ''" displaynam="Category" :options="$categories" required size="3" onchange="fillSubCategories()"/>
+    <x-form.select name="category_id" :selected="$subCategory->category_id ?? ''" displaynam="Category" :options="$categories" required size="3"/>
     <x-form.input name="name" :value="$subCategory->name ?? ''" displaynam="Arabic Name" required  size="4" autocomplete="off"/>
     <x-form.input name="name_en" :value="$subCategory->name_en ?? ''" displaynam="English Name" required  size="4"/>
 </div>

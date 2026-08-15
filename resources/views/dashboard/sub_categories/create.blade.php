@@ -8,7 +8,7 @@
     </x-slot:breadcrumb>
     <div class="card card-success">
         <div class="card-header py-2">
-            <h3 class="card-title">{{ __('Add') . ' ' . __('Service') }}</h3>
+            <h3 class="card-title">{{ __('Add') . ' ' . __('Sub Category') }}</h3>
         </div>
         <x-alert />
         <form method="POST" action={{ route('dashboard.sub-categories.store') }} class="m-3" enctype="multipart/form-data"

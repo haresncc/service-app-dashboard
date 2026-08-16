@@ -24,7 +24,7 @@
         <link rel="stylesheet" href="{{ asset('dist/css/adminltertl.min.css') }}">
     @endif
     <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
-    <link rel="icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" href="{{ asset('fit-dashboard.png') }}">
     @if ($title == 'Services')
         <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
     @endif
